@@ -1,12 +1,6 @@
-import random
+mport random
 
-def weighted_srs(data: list, n: int, weights: list, with_replacement: bool):
+def weighted_srs(data: list, n: int, weights: list, *, with_replacement: bool = False):
     if with_replacement:
         return random.choices(data, weights=weights, k=n)
-    secilenler = []
-    
-    while len(secilenler) < n:
-        aday = random.choices(data, weights=weights, k=1)[0]
-        if aday not in secilenler:
-            secilenler.append(aday)
-    return secilenler
+    return random.sample(sum([[e] * int(w * 100) for e, w in zip(data, weights)], []), k=n)
